@@ -15,7 +15,7 @@ export default function LandingPage() {
                             {/* Image Container */}
                             <div className="relative w-64 h-80 md:w-80 md:h-112.5 rounded-2xl overflow-hidden border border-white/10 bg-slate-900 shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]">
                                 <Image
-                                    src="/diwasbk.jpg"
+                                    src="/images/diwasbk.jpg"
                                     alt="Diwas BK"
                                     className="w-full h-full object-cover grayscale-20 hover:grayscale-0 transition-all duration-700"
                                     width={500}
