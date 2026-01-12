@@ -60,6 +60,22 @@ export default function LandingPage() {
                             Architecting resilient digital solutions through clean code and innovative design. Specializing in high-performance applications that bridge the gap between complex backend logic and intuitive user experiences.
                         </p>
 
+                        {/* Specialized Tech Stack */}
+                        <div className="mb-12">
+                            <h3 className="text-sm font-semibold text-gray-200 uppercase tracking-[0.2em] mb-4">
+                                Core Technologies
+                            </h3>
+                            <div className="relative h-10 md:h-12">
+                                <Image
+                                    src="https://skillicons.dev/icons?i=python,java,js,nodejs,express,react,next,mysql,postgres,mongodb,docker,git&theme=dark"
+                                    alt="Tech Stack"
+                                    fill
+                                    style={{ objectFit: "contain" }}
+                                    className="opacity-90 hover:opacity-100 transition-opacity"
+                                />
+                            </div>
+                        </div>
+
                         {/* Call to Actions */}
                         <div className="flex flex-wrap gap-5">
                             <button className="group relative px-8 py-4 font-bold text-gray-200 rounded-full bg-linear-to-r from-blue-400 to-purple-500 transition-all hover:from-blue-400 hover:to-purple-600 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] cursor-pointer">
