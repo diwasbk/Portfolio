@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { Github, Linkedin, Instagram } from "lucide-react";
 
 const projects = [
   {
@@ -123,6 +123,19 @@ export default function FeaturedWork() {
         </section>
 
       </main>
+
+      {/* FOOTER CALL TO ACTION */}
+      <footer className="mt-22 px-8 text-center pb-10">
+
+        {/* CTA Box */}
+        <div className="max-w-3xl mx-auto p-12 rounded-3xl bg-linear-to-b from-blue-600/10 to-transparent border border-blue-500/20">
+          <h2 className="text-3xl font-bold text-white mb-4">Have a project in mind?</h2>
+          <p className="text-slate-400 mb-8">I&apos;m currently looking for new opportunities to build impactful software.</p>
+          <Link href="mailto:diwasbk@example.com" className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-all shadow-lg shadow-blue-600/20">
+            Get In Touch
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }
