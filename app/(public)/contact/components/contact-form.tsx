@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { User, Mail, MessageSquare, Briefcase, Layout, Database, Smartphone, Globe } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { contactSchema, contactType } from "../schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function ContactForm() {
   // State management for the custom selection
@@ -14,6 +17,23 @@ export default function ContactForm() {
     { id: 'backend', label: 'API & Backend', icon: Database, desc: 'Robust server architecture' },
     { id: 'frontend', label: 'UI/UX Design', icon: Layout, desc: 'Visuals & Interactions' },
   ];
+
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<contactType>(
+    {
+      resolver: zodResolver(contactSchema)
+    }
+  )
+
+  const onSubmit = async (data: contactType) => {
+    const formData = {
+      fullName: data.fullName,
+      email: data.email,
+      projectType: data.projectType,
+      projectDescription: data.projectDescription
+    }
+    console.log(formData)
+    alert(`${data.fullName}, ${data.email}, ${data.projectType}, ${data.projectDescription}`)
+  }
 
   return (
     <section className="bg-[#030712] py-8 px-8 selection:bg-blue-500/30">
@@ -30,7 +50,7 @@ export default function ContactForm() {
         </div>
 
         {/* Form */}
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900/20 p-8 md:p-12 rounded-4xl border border-white/5 backdrop-blur-sm relative overflow-hidden">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900/20 p-8 md:p-12 rounded-4xl border border-white/5 backdrop-blur-sm relative overflow-hidden">
 
           {/* Background glow */}
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
@@ -42,10 +62,14 @@ export default function ContactForm() {
               Full Name
             </label>
             <input
+              {...register("fullName")}
               type="text"
               placeholder="Your name"
               className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-4 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 transition-colors"
             />
+            {errors.fullName && (
+              <p className="text-red-500">{errors.fullName?.message}</p>
+            )}
           </div>
 
           {/* Email */}
@@ -55,10 +79,14 @@ export default function ContactForm() {
               Email Address
             </label>
             <input
+              {...register("email")}
               type="email"
               placeholder="hello@example.com"
               className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-4 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 transition-colors"
             />
+            {errors.email && (
+              <p className="text-red-500">{errors.email?.message}</p>
+            )}
           </div>
 
           {/* Project Selection */}
@@ -75,17 +103,25 @@ export default function ContactForm() {
                 <button
                   key={type.id}
                   type="button"
-                  onClick={() => setSelectedType(type.id)}
+                  onClick={() => {
+                    setSelectedType(type.id);
+                    setValue("projectType", type.id);
+                  }}
                   className={`group relative flex items-start gap-4 p-4 rounded-xl border transition-all duration-200 text-left cursor-pointer ${selectedType === type.id
                     ? "bg-blue-500/10 border-blue-500/50 ring-1 ring-blue-500/50"
                     : "bg-slate-900/50 border-white/5 hover:bg-slate-800/50 hover:border-blue-500/30"
                     }`}
                 >
-                  <div className={`p-2 rounded-lg transition-colors ${selectedType === type.id ? "bg-blue-500 text-white" : "bg-slate-800 text-slate-400 group-hover:text-blue-400"
-                    }`}>
+                  <div
+                    className={`p-2 rounded-lg transition-colors ${selectedType === type.id
+                      ? "bg-blue-500 text-white"
+                      : "bg-slate-800 text-slate-400 group-hover:text-blue-400"
+                      }`}
+                  >
                     <type.icon size={20} />
                   </div>
-                  <div>
+
+                  <div key={type.id + "-text"}>  {/* <-- added key here */}
                     <div className="text-sm font-medium text-slate-200">{type.label}</div>
                     <div className="text-xs text-slate-500">{type.desc}</div>
                   </div>
@@ -101,16 +137,21 @@ export default function ContactForm() {
               Project Details
             </label>
             <textarea
+              {...register("projectDescription")}
               rows={3}
               placeholder="Briefly describe your project requirements..."
               className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-4 text-slate-200 placeholder:text-slate-600 resize-none focus:outline-none focus:border-blue-500/50 transition-colors"
             />
+            {errors.projectDescription && (
+              <p className="text-red-500">{errors.projectDescription?.message}</p>
+            )}
           </div>
 
           {/* Submit */}
           <div className="md:col-span-2 flex justify-center pt-2">
             <button
               type="submit"
+              disabled={isSubmitting}
               className="flex items-center gap-3 px-16 py-3 font-bold rounded-2xl bg-blue-600 hover:bg-blue-500 text-gray-200 shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-1 active:scale-95 cursor-pointer"
             >
               Send Inquiry
