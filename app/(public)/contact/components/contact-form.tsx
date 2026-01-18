@@ -1,14 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { User, Mail, MessageSquare, Briefcase, Layout, Database, Smartphone, Globe } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { contactSchema, contactType } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { handleContactEmail } from "@/lib/actions/contact-actions";
 
 export default function ContactForm() {
   // State management for the custom selection
   const [selectedType, setSelectedType] = useState("fullstack");
+
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [err, setError] = useState("");
 
   // Data array moved outside the render loop for cleanliness
   const projectTypes = [
@@ -18,22 +24,31 @@ export default function ContactForm() {
     { id: 'frontend', label: 'UI/UX Design', icon: Layout, desc: 'Visuals & Interactions' },
   ];
 
-  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<contactType>(
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<contactType>(
     {
-      resolver: zodResolver(contactSchema)
+      resolver: zodResolver(contactSchema),
+      defaultValues: {
+        projectType: "fullstack"
+      }
     }
   )
 
+
   const onSubmit = async (data: contactType) => {
-    const formData = {
-      fullName: data.fullName,
-      email: data.email,
-      projectType: data.projectType,
-      projectDescription: data.projectDescription
+    setError("");
+    setIsLoading(true); // start loading
+    try {
+      const res = await handleContactEmail(data);
+      if (!res.success) {
+        throw new Error(res.message || "Something went wrong | Please try again later!");
+      }
+      router.push("/"); // redirect after success
+    } catch (err: any) {
+      setError(err.message || "Something went wrong | Please try again later!");
+    } finally {
+      setIsLoading(false); // stop loading
     }
-    console.log(formData)
-    alert(`${data.fullName}, ${data.email}, ${data.projectType}, ${data.projectDescription}`)
-  }
+  };
 
   return (
     <section className="bg-[#030712] py-8 px-8 selection:bg-blue-500/30">
@@ -51,6 +66,8 @@ export default function ContactForm() {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-900/20 p-8 md:p-12 rounded-4xl border border-white/5 backdrop-blur-sm relative overflow-hidden">
+
+          <input type="hidden" {...register("projectType")} />
 
           {/* Background glow */}
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
@@ -147,14 +164,19 @@ export default function ContactForm() {
             )}
           </div>
 
+          {/* Server Error! */}
+          {err && (
+            <p className="text-red-500">{err}</p>
+          )}
+
           {/* Submit */}
           <div className="md:col-span-2 flex justify-center pt-2">
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isLoading}
               className="flex items-center gap-3 px-16 py-3 font-bold rounded-2xl bg-blue-600 hover:bg-blue-500 text-gray-200 shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-1 active:scale-95 cursor-pointer"
             >
-              Send Inquiry
+              {isLoading ? "Sending request..." : "Send Inquiry"}
             </button>
           </div>
         </form>
