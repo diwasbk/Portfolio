@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const projects = [
   {
-    title: "MedicoConnect",
+    title: "MediConnect",
     subtitle: "Healthcare Management Platform",
     description: "A comprehensive full-stack system connecting patients and providers. Built with a focus on real-time interaction through an AI medical chatbot and secure JWT-based health record management.",
     tech: ["Next.js", "Node.js", "Express", "MongoDB", "JWT"],

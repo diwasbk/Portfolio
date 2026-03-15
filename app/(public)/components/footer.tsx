@@ -6,7 +6,7 @@ export default function Footer() {
         <div>
 
             {/* FOOTER CALL TO ACTION */}
-            <footer className="mt-22 px-8 text-center pb-10">
+            <footer className="pt-22 px-8 text-center pb-10 bg-slate-950 text-white border-t border-slate-800/80">
 
                 {/* CTA Box */}
                 <div className="max-w-3xl mx-auto p-12 rounded-3xl bg-linear-to-b from-blue-600/10 to-transparent border border-blue-500/20">
@@ -47,7 +47,7 @@ export default function Footer() {
 
                         {/* Instagram */}
                         <Link
-                            href="https://instagram.com/diwas_b.k"
+                            href="https://instagram.com/diwascodes"
                             target="_blank"
                             className="group flex flex-col items-center gap-3"
                         >
