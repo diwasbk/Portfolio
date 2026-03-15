@@ -70,6 +70,7 @@ export default function HeroSection() {
                                     src="https://skillicons.dev/icons?i=python,java,js,nodejs,express,react,next,mysql,postgres,mongodb,docker,git&theme=dark"
                                     alt="Tech Stack"
                                     fill
+                                    unoptimized
                                     style={{ objectFit: "contain" }}
                                     className="opacity-90 hover:opacity-100 transition-opacity"
                                 />

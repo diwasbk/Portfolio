@@ -47,7 +47,7 @@ export default function Footer() {
 
                         {/* Instagram */}
                         <Link
-                            href="https://instagram.com/diwas_b.k"
+                            href="https://instagram.com/diwascodes"
                             target="_blank"
                             className="group flex flex-col items-center gap-3"
                         >
