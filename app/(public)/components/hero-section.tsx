@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
     return (
@@ -79,13 +80,19 @@ export default function HeroSection() {
 
                         {/* Call to Actions */}
                         <div className="flex gap-5">
-                            <button className="group relative px-8 py-4 font-bold text-gray-200 rounded-full bg-linear-to-r from-blue-400 to-purple-500 transition-all hover:from-blue-400 hover:to-purple-600 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] cursor-pointer">
+                            <Link
+                                href={"https://github.com/diwasbk"}
+                                className="group relative px-8 py-4 font-bold text-gray-200 rounded-full bg-linear-to-r from-blue-400 to-purple-500 transition-all hover:from-blue-400 hover:to-purple-600 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] cursor-pointer">
                                 Explore Portfolio
-                            </button>
+                            </Link>
 
-                            <button className="px-8 py-4 border border-gray-700 text-gray-200 font-semibold rounded-full hover:bg-slate-800/50 hover:border-slate-500 transition-all cursor-pointer">
+                            <a
+                                href="/diwas-bk-cv.pdf"
+                                download
+                                className="px-8 py-4 border border-gray-700 text-gray-200 font-semibold rounded-full hover:bg-slate-800/50 hover:border-slate-500 transition-all cursor-pointer inline-flex items-center justify-center"
+                            >
                                 Download CV
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

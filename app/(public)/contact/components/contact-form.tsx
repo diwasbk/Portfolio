@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { User, Mail, MessageSquare, Briefcase, Layout, Database, Smartphone, Globe } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { contactSchema, contactType } from "../schema";
