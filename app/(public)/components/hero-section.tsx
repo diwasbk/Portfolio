@@ -30,7 +30,7 @@ export default function HeroSection() {
 
                             {/* Floating Achievement Badge (Optional) */}
                             <div className="absolute -bottom-6 -right-6 bg-slate-900/80 backdrop-blur-md border border-white/10 p-4 rounded-xl hidden md:block shadow-xl">
-                                <p className="text-blue-400 font-bold text-xl leading-none">1+</p>
+                                <p className="text-blue-400 font-bold text-xl leading-none">2+</p>
                                 <p className="text-[10px] uppercase tracking-tighter text-slate-400">Years Experience</p>
                             </div>
                         </div>
